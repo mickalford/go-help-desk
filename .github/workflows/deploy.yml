@@ -12,15 +12,10 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VINNIE_HOST }}
-          username: ${{ secrets.VINNIE_USER }}
-          key: ${{ secrets.VINNIE_SSH_KEY }}
-          script: |
-            cd ~/docker/gohelpdesk/docker
-            git -C ~/docker/gohelpdesk pull
-            docker compose up -d --build
+      - name: Deploy
+        run: |
+          git -C ~/docker/gohelpdesk pull
+          cd ~/docker/gohelpdesk/docker
+          docker compose up -d --build
