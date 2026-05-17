@@ -9,6 +9,7 @@ on:
       - docker/**
       - go.mod
       - go.sum
+      - .github/workflows/deploy.yml
 
 jobs:
   deploy:
