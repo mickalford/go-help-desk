@@ -18,6 +18,7 @@ import { SettingsPage } from '@/pages/admin/SettingsPage'
 import { TagsPage } from '@/pages/admin/TagsPage'
 import { CustomFieldsPage } from '@/pages/admin/CustomFieldsPage'
 import { APIKeysPage } from '@/pages/admin/APIKeysPage'
+import { ClientsPage } from '@/pages/admin/ClientsPage'
 import { GuestTicketPage } from '@/pages/GuestTicketPage'
 import { SignupPage } from '@/pages/SignupPage'
 import { VerifyEmailPage } from '@/pages/VerifyEmailPage'
@@ -75,6 +76,7 @@ const ticketsRoute = createRoute({
   validateSearch: (search: Record<string, unknown>) => ({
     status: typeof search.status === 'string' ? search.status : undefined,
     reporter: typeof search.reporter === 'string' ? search.reporter : undefined,
+    client: typeof search.client === 'string' ? search.client : undefined,
   }),
   component: TicketListPage,
 })
@@ -164,6 +166,13 @@ const adminAPIKeysRoute = createRoute({
   component: APIKeysPage,
 })
 
+const adminClientsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/clients',
+  beforeLoad: requireAdmin,
+  component: ClientsPage,
+})
+
 // ── Guest ─────────────────────────────────────────────────────────────────────
 const submitRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -215,6 +224,7 @@ export const router = createRouter({
     adminTagsRoute,
     adminCustomFieldsRoute,
     adminAPIKeysRoute,
+    adminClientsRoute,
     adminSettingsRoute,
   ]),
 })

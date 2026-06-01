@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/group"
+	"github.com/mickalford/opsmuster/backend/internal/domain/group"
 	"github.com/stretchr/testify/require"
 )
 

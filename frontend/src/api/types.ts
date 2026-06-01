@@ -91,9 +91,19 @@ export interface Ticket {
   guest_email?: string
   guest_name?: string
   guest_phone?: string
+  client_id?: string
   resolution_notes?: string
   resolved_at?: string
   closed_at?: string
+  created_at: string
+  updated_at: string
+}
+
+export interface Client {
+  id: string
+  name: string
+  domain: string
+  notes?: string
   created_at: string
   updated_at: string
 }

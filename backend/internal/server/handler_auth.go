@@ -7,9 +7,9 @@ import (
 
 	"github.com/crewjam/saml/samlsp"
 	"github.com/gorilla/sessions"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
 )
 
 // POST /api/v1/auth/local/login

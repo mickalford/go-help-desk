@@ -39,16 +39,16 @@ We do not run a bug bounty program.
 
 **In scope:**
 
-- The Go Help Desk backend (`backend/`)
+- The OpsMuster backend (`backend/`)
 - The React frontend (`frontend/`)
 - Official Docker images and `docker-compose.yml` in this repository
 - Default configuration and documented deployment paths
 
 **Out of scope:**
 
-- Vulnerabilities in third-party dependencies — please report those to the upstream project. If exploitability depends on how Go Help Desk uses the dependency, we still want to hear about it.
+- Vulnerabilities in third-party dependencies — please report those to the upstream project. If exploitability depends on how OpsMuster uses the dependency, we still want to hear about it.
 - User misconfiguration (e.g. running without TLS, weak administrator passwords, exposing the admin interface to the public internet without access control).
-- Social engineering, physical attacks, and denial-of-service against gohelpdesk.org infrastructure.
+- Social engineering, physical attacks, and denial-of-service against opsmuster.io infrastructure.
 - Findings from automated scanners without a demonstrated security impact.
 
 ## Safe Harbor

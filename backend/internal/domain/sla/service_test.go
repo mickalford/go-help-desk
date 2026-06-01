@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/sla"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/sla"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
 	"github.com/stretchr/testify/require"
 )
 

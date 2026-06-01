@@ -15,21 +15,22 @@ import (
 	"github.com/google/uuid"
 	"github.com/crewjam/saml/samlsp"
 	"github.com/gorilla/sessions"
-	"github.com/publiciallc/go-help-desk/backend/internal/config"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/authstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/admin"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/category"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/customfield"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/group"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/plugin"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/registration"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/sla"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/tag"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
-	"github.com/publiciallc/go-help-desk/backend/internal/version"
+	"github.com/mickalford/opsmuster/backend/internal/config"
+	"github.com/mickalford/opsmuster/backend/internal/database/authstore"
+	"github.com/mickalford/opsmuster/backend/internal/domain/admin"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	"github.com/mickalford/opsmuster/backend/internal/domain/category"
+	"github.com/mickalford/opsmuster/backend/internal/domain/client"
+	"github.com/mickalford/opsmuster/backend/internal/domain/customfield"
+	"github.com/mickalford/opsmuster/backend/internal/domain/group"
+	"github.com/mickalford/opsmuster/backend/internal/domain/plugin"
+	"github.com/mickalford/opsmuster/backend/internal/domain/registration"
+	"github.com/mickalford/opsmuster/backend/internal/domain/sla"
+	"github.com/mickalford/opsmuster/backend/internal/domain/tag"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/version"
 )
 
 func init() {
@@ -70,6 +71,7 @@ type Server struct {
 	categories   *category.Service
 	groups       *group.Service
 	tags         *tag.Service
+	clients      *client.Service
 	adminSvc     *admin.Service
 	customFields *customfield.Service
 	slaPolicies  *sla.Service
@@ -93,6 +95,7 @@ func New(
 	categories *category.Service,
 	groups *group.Service,
 	tags *tag.Service,
+	clients *client.Service,
 	adminSvc *admin.Service,
 	customFields *customfield.Service,
 	slaPolicies *sla.Service,
@@ -111,6 +114,7 @@ func New(
 		categories:       categories,
 		groups:           groups,
 		tags:             tags,
+		clients:          clients,
 		adminSvc:         adminSvc,
 		customFields:     customFields,
 		slaPolicies:      slaPolicies,

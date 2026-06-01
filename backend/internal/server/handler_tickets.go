@@ -6,10 +6,43 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
 )
+
+// enrichTicketClient populates ticket.ClientID from the clients service.
+func (s *Server) enrichTicketClient(r *http.Request, t *ticket.Ticket) {
+	if s.clients == nil {
+		return
+	}
+	c, err := s.clients.GetForTicket(r.Context(), t.ID)
+	if err != nil || c == nil {
+		return
+	}
+	t.ClientID = &c.ID
+}
+
+// enrichTicketsClients batch-populates ClientID on a slice of tickets.
+func (s *Server) enrichTicketsClients(r *http.Request, tickets []ticket.Ticket) {
+	if s.clients == nil || len(tickets) == 0 {
+		return
+	}
+	ids := make([]uuid.UUID, len(tickets))
+	for i, t := range tickets {
+		ids[i] = t.ID
+	}
+	m, err := s.clients.GetMapForTickets(r.Context(), ids)
+	if err != nil || m == nil {
+		return
+	}
+	for i := range tickets {
+		if c, ok := m[tickets[i].ID]; ok {
+			id := c.ID
+			tickets[i].ClientID = &id
+		}
+	}
+}
 
 // GET /api/v1/tickets
 // Returns tickets relevant to the current user:
@@ -47,6 +80,7 @@ func (s *Server) handleListTickets(w http.ResponseWriter, r *http.Request) {
 			handleError(w, err)
 			return
 		}
+		s.enrichTicketsClients(r, tickets)
 		JSON(w, http.StatusOK, tickets)
 		return
 	}
@@ -72,6 +106,7 @@ func (s *Server) handleListTickets(w http.ResponseWriter, r *http.Request) {
 			handleError(w, err)
 			return
 		}
+		s.enrichTicketsClients(r, tickets)
 		JSON(w, http.StatusOK, tickets)
 		return
 	}
@@ -104,6 +139,7 @@ func (s *Server) handleListTickets(w http.ResponseWriter, r *http.Request) {
 			handleError(w, err)
 			return
 		}
+		s.enrichTicketsClients(r, tickets)
 		JSON(w, http.StatusOK, tickets)
 		return
 	}
@@ -123,6 +159,7 @@ func (s *Server) handleListTickets(w http.ResponseWriter, r *http.Request) {
 			handleError(w, err)
 			return
 		}
+		s.enrichTicketsClients(r, tickets)
 		JSON(w, http.StatusOK, tickets)
 		return
 	}
@@ -171,6 +208,7 @@ func (s *Server) handleListTickets(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	s.enrichTicketsClients(r, all)
 	JSON(w, http.StatusOK, all)
 }
 
@@ -195,6 +233,8 @@ func (s *Server) handleCreateTicket(w http.ResponseWriter, r *http.Request) {
 		GuestEmail string `json:"guest_email"`
 		GuestName  string `json:"guest_name"`
 		GuestPhone string `json:"guest_phone"`
+		// Staff/admin only
+		ClientID *uuid.UUID `json:"client_id"`
 		// Custom fields: map of fieldDefId → value
 		CustomFields map[string]string `json:"custom_fields"`
 	}
@@ -284,6 +324,13 @@ func (s *Server) handleCreateTicket(w http.ResponseWriter, r *http.Request) {
 		_ = s.customFields.SetValue(r.Context(), t.ID, fieldDefID, value)
 	}
 
+	// Link to client (staff/admin only; non-fatal).
+	if isStaffOrAdmin && body.ClientID != nil {
+		if err := s.clients.SetForTicket(r.Context(), t.ID, body.ClientID); err == nil {
+			t.ClientID = body.ClientID
+		}
+	}
+
 	JSON(w, http.StatusCreated, t)
 }
 
@@ -313,6 +360,7 @@ func (s *Server) handleGetTicket(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	s.enrichTicketClient(r, &t)
 	JSON(w, http.StatusOK, t)
 }
 
@@ -332,6 +380,7 @@ func (s *Server) handleUpdateTicket(w http.ResponseWriter, r *http.Request) {
 		CategoryID      *uuid.UUID `json:"category_id"`
 		TypeID          *uuid.UUID `json:"type_id"`
 		ItemID          *uuid.UUID `json:"item_id"`
+		ClientID        *uuid.UUID `json:"client_id"`
 	}
 	if err := DecodeJSON(r, &body); err != nil {
 		Error(w, http.StatusBadRequest, "bad_request", "invalid JSON")
@@ -363,11 +412,19 @@ func (s *Server) handleUpdateTicket(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Update client link (staff/admin only). Follows the same convention as other
+	// PATCH fields: nil means "not provided, don't change". To explicitly set a
+	// client, send client_id as a UUID string.
+	if body.ClientID != nil && (a.Role == user.RoleAdmin || a.Role == user.RoleStaff) {
+		_ = s.clients.SetForTicket(r.Context(), id, body.ClientID)
+	}
+
 	t, err := s.tickets.GetByID(r.Context(), id)
 	if err != nil {
 		handleError(w, err)
 		return
 	}
+	s.enrichTicketClient(r, &t)
 	JSON(w, http.StatusOK, t)
 }
 

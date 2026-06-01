@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/auth'
 import { logout } from '@/api/auth'
 import { getSiteConfig } from '@/api/admin'
 import { Button } from '@/components/ui/button'
-import { TicketIcon, UsersIcon, SettingsIcon, LogOutIcon, HomeIcon, FolderIcon, CircleDotIcon, ShieldIcon, UsersRoundIcon, TagIcon, SlidersIcon, KeyIcon } from 'lucide-react'
+import { TicketIcon, UsersIcon, SettingsIcon, LogOutIcon, HomeIcon, FolderIcon, CircleDotIcon, ShieldIcon, UsersRoundIcon, TagIcon, SlidersIcon, KeyIcon, BuildingIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface NavItemProps {
@@ -45,7 +45,7 @@ export function Layout({ children }: LayoutProps) {
     staleTime: 5 * 60 * 1000, // refresh at most every 5 min
   })
 
-  const siteName = siteConfig?.name ?? 'Go Help Desk'
+  const siteName = siteConfig?.name ?? 'OpsMuster'
   const logoURL = siteConfig?.logo_url ?? ''
   const version = siteConfig?.version ?? ''
 
@@ -90,6 +90,7 @@ export function Layout({ children }: LayoutProps) {
                 <NavItem to="/admin/tags" icon={<TagIcon className="h-4 w-4" />} label="Tags" />
                 <NavItem to="/admin/custom-fields" icon={<SlidersIcon className="h-4 w-4" />} label="Custom Fields" />
                 <NavItem to="/admin/api-keys" icon={<KeyIcon className="h-4 w-4" />} label="API Keys" />
+                <NavItem to="/admin/clients" icon={<BuildingIcon className="h-4 w-4" />} label="Clients" />
                 <NavItem to="/admin/settings" icon={<SettingsIcon className="h-4 w-4" />} label="Settings" />
               </>
             )}
@@ -114,16 +115,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Footer — full width across the bottom */}
       {version && (
         <footer className="border-t bg-white px-6 py-2 text-center text-[11px] text-gray-400">
-          Powered by{' '}
-          <a
-            href="https://github.com/PubliciaLLC/go-help-desk"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline decoration-dotted hover:decoration-solid"
-          >
-            Go Help Desk
-          </a>{' '}
-          v{version}
+          OpsMuster v{version}
         </footer>
       )}
     </div>

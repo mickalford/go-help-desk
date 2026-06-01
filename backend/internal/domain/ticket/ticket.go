@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
 )
 
 // Priority is one of the four configurable severity levels.
@@ -104,6 +104,7 @@ type Ticket struct {
 	GuestEmail      *string        `json:"guest_email,omitempty"`
 	GuestName       string         `json:"guest_name,omitempty"`
 	GuestPhone      string         `json:"guest_phone,omitempty"`
+	ClientID        *uuid.UUID     `json:"client_id,omitempty"`
 	ResolutionNotes *string        `json:"resolution_notes,omitempty"`
 	ResolvedAt      *time.Time     `json:"resolved_at,omitempty"`
 	ClosedAt        *time.Time     `json:"closed_at,omitempty"`

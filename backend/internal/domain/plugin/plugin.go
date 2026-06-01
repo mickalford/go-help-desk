@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/notification"
+	"github.com/mickalford/opsmuster/backend/internal/domain/notification"
 )
 
 // Runtime distinguishes first-party (compiled-in) plugins from third-party

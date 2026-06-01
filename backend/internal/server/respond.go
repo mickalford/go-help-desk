@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/database/ticketstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/userstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/ticketstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/userstore"
 )
 
 // JSON writes v as JSON with the given status code.

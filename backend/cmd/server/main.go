@@ -15,36 +15,38 @@ import (
 
 	"github.com/gorilla/sessions"
 	"github.com/jackc/pgx/v5/stdlib"
-	"github.com/publiciallc/go-help-desk/backend/internal/config"
-	"github.com/publiciallc/go-help-desk/backend/internal/database"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/adminstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/auditstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/authstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/categorystore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/customfieldstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/groupstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/registrationstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/slastore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/tagstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/ticketstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/userstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/dbgen"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/admin"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/category"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/customfield"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/group"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/plugin"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/registration"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/sla"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/tag"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
-	"github.com/publiciallc/go-help-desk/backend/internal/mcp"
-	"github.com/publiciallc/go-help-desk/backend/internal/server"
-	"github.com/publiciallc/go-help-desk/backend/internal/server/notify"
-	"github.com/publiciallc/go-help-desk/backend/internal/ui"
+	"github.com/mickalford/opsmuster/backend/internal/config"
+	"github.com/mickalford/opsmuster/backend/internal/database"
+	"github.com/mickalford/opsmuster/backend/internal/database/adminstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/auditstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/authstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/categorystore"
+	"github.com/mickalford/opsmuster/backend/internal/database/clientstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/customfieldstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/groupstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/registrationstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/slastore"
+	"github.com/mickalford/opsmuster/backend/internal/database/tagstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/ticketstore"
+	"github.com/mickalford/opsmuster/backend/internal/database/userstore"
+	"github.com/mickalford/opsmuster/backend/internal/dbgen"
+	"github.com/mickalford/opsmuster/backend/internal/domain/admin"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	"github.com/mickalford/opsmuster/backend/internal/domain/category"
+	"github.com/mickalford/opsmuster/backend/internal/domain/client"
+	"github.com/mickalford/opsmuster/backend/internal/domain/customfield"
+	"github.com/mickalford/opsmuster/backend/internal/domain/group"
+	"github.com/mickalford/opsmuster/backend/internal/domain/plugin"
+	"github.com/mickalford/opsmuster/backend/internal/domain/registration"
+	"github.com/mickalford/opsmuster/backend/internal/domain/sla"
+	"github.com/mickalford/opsmuster/backend/internal/domain/tag"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/mcp"
+	"github.com/mickalford/opsmuster/backend/internal/server"
+	"github.com/mickalford/opsmuster/backend/internal/server/notify"
+	"github.com/mickalford/opsmuster/backend/internal/ui"
 )
 
 func main() {
@@ -101,11 +103,13 @@ func run() error {
 
 	// ── Domain services ───────────────────────────────────────────────────────
 	tagStore := tagstore.New(q)
+	clientStore := clientstore.New(sqlDB)
 
 	userSvc := user.NewService(uStore)
 	categorySvc := category.NewService(cStore)
 	groupSvc := group.NewService(gStore)
 	tagSvc := tag.NewService(tagStore)
+	clientSvc := client.NewService(clientStore)
 	adminSvc := admin.NewService(aStore)
 	customFieldSvc := customfield.NewService(cfStore)
 
@@ -173,6 +177,7 @@ func run() error {
 		categorySvc,
 		groupSvc,
 		tagSvc,
+		clientSvc,
 		adminSvc,
 		customFieldSvc,
 		slaPolicySvc,
@@ -211,7 +216,7 @@ func run() error {
 		shutdownDone <- httpSrv.Shutdown(shutdownCtx)
 	}()
 
-	slog.Info("go-help-desk listening", "port", cfg.HTTPPort)
+	slog.Info("opsmuster listening", "port", cfg.HTTPPort)
 	if err := httpSrv.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 		return fmt.Errorf("http server: %w", err)
 	}

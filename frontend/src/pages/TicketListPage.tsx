@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useSearch } from '@tanstack/react-router'
 import { listTickets, updateTicket, type TicketScope } from '@/api/tickets'
-import { listStatuses, listUsers } from '@/api/admin'
+import { listStatuses, listUsers, listClients } from '@/api/admin'
 import { useAuthStore } from '@/store/auth'
 import { Layout } from '@/components/Layout'
 import { Button } from '@/components/ui/button'
@@ -32,7 +32,7 @@ function emptyMessageFor(scope: TicketScope) {
 export function TicketListPage() {
   const navigate = useNavigate()
   const qc = useQueryClient()
-  const { status: statusFilter, reporter: reporterFilter } = useSearch({ from: '/tickets' })
+  const { status: statusFilter, reporter: reporterFilter, client: clientFilter } = useSearch({ from: '/tickets' })
   const { user } = useAuthStore()
   const isStaffOrAdmin = user?.role === 'staff' || user?.role === 'admin'
   const isAdmin = user?.role === 'admin'
@@ -61,6 +61,12 @@ export function TicketListPage() {
     enabled: isAdmin,
   })
 
+  const { data: clients = [] } = useQuery({
+    queryKey: ['admin', 'clients'],
+    queryFn: listClients,
+    enabled: isAdmin,
+  })
+
   // Non-admins are always scoped to "mine" — the backend rejects other scopes.
   const effectiveScope: TicketScope = isAdmin ? scope : 'mine'
 
@@ -84,8 +90,9 @@ export function TicketListPage() {
   const tickets = useMemo(() => {
     let list = includeClosed ? allTickets : allTickets.filter(t => !closedIds.has(t.status_id))
     if (statusFilter) list = list.filter(t => t.status_id === statusFilter)
+    if (clientFilter) list = list.filter(t => t.client_id === clientFilter)
     return list
-  }, [allTickets, includeClosed, closedIds, statusFilter])
+  }, [allTickets, includeClosed, closedIds, statusFilter, clientFilter])
 
   function statusFor(id: string) {
     return statuses.find(s => s.id === id)
@@ -164,6 +171,21 @@ export function TicketListPage() {
               ))}
             </div>
           )}
+          {isAdmin && clients.length > 0 && (
+            <select
+              className="rounded border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700"
+              value={clientFilter ?? ''}
+              onChange={e => {
+                const v = e.target.value
+                navigate({ to: '/tickets', search: (prev: Record<string, unknown>) => ({ ...prev, client: v || undefined }) })
+              }}
+            >
+              <option value="">All clients</option>
+              {clients.map(c => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+          )}
           <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none whitespace-nowrap">
             <input
               type="checkbox"
@@ -228,6 +250,22 @@ export function TicketListPage() {
               </Link>
             </div>
           )
+        })()}
+
+        {/* Client filter chip */}
+        {clientFilter && (() => {
+          const c = clients.find(c => c.id === clientFilter)
+          return c ? (
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-500">Filtering by client:</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+                {c.name}
+              </span>
+              <Link to="/tickets" search={(prev: Record<string, unknown>) => ({ ...prev, client: undefined })} className="text-xs text-gray-400 hover:text-gray-600">
+                Clear ×
+              </Link>
+            </div>
+          ) : null
         })()}
 
         {/* Bulk action bar */}
@@ -315,8 +353,14 @@ export function TicketListPage() {
                       <td className="whitespace-nowrap px-4 py-2 font-mono text-xs text-gray-500">
                         {t.tracking_number}
                       </td>
-                      <td className="px-4 py-2 font-medium text-gray-900 max-w-xs truncate">
-                        {t.subject}
+                      <td className="px-4 py-2 max-w-xs">
+                        <div className="font-medium text-gray-900 truncate">{t.subject}</div>
+                        {isAdmin && t.client_id && (() => {
+                          const c = clients.find(c => c.id === t.client_id)
+                          return c ? (
+                            <span className="text-xs text-gray-400">{c.name}</span>
+                          ) : null
+                        })()}
                       </td>
                       <td className="px-4 py-2">
                         {status ? (

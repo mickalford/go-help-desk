@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/notification"
-	"github.com/publiciallc/go-help-desk/backend/internal/server/notify"
+	"github.com/mickalford/opsmuster/backend/internal/domain/notification"
+	"github.com/mickalford/opsmuster/backend/internal/server/notify"
 	"github.com/stretchr/testify/require"
 )
 

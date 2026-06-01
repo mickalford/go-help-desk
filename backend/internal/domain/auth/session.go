@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
 )
 
 // SessionData is the payload stored in the signed session cookie.

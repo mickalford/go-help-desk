@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/dbgen"
+	"github.com/mickalford/opsmuster/backend/internal/dbgen"
 )
 
 // Store implements admin.Store.

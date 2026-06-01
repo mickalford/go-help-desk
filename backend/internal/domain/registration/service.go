@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
 )
 
 // ErrTokenExpired is returned when the verification token has passed its TTL.

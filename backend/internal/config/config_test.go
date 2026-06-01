@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/config"
+	"github.com/mickalford/opsmuster/backend/internal/config"
 	"github.com/stretchr/testify/require"
 )
 

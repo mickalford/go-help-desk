@@ -9,14 +9,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: helpdesk
-          POSTGRES_PASSWORD: helpdesk
-          POSTGRES_DB: helpdesk
+          POSTGRES_USER: opsmuster
+          POSTGRES_PASSWORD: opsmuster
+          POSTGRES_DB: opsmuster
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -42,7 +42,7 @@ jobs:
         run: go test -v -race ./...
         working-directory: ./backend
         env:
-          TEST_DATABASE_URL: postgres://helpdesk:helpdesk@localhost:5432/helpdesk?sslmode=disable
+          TEST_DATABASE_URL: postgres://opsmuster:opsmuster@localhost:5432/opsmuster?sslmode=disable
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
@@ -53,11 +53,11 @@ jobs:
 
   docker-build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t go-help-desk:ci .
+        run: docker build -t opsmuster:ci .
         working-directory: ./backend

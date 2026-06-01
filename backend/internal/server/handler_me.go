@@ -6,8 +6,8 @@ import (
 
 	qrcode "github.com/skip2/go-qrcode"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
 )
 
 // GET /api/v1/me

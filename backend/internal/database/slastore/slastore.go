@@ -7,10 +7,10 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/database"
-	"github.com/publiciallc/go-help-desk/backend/internal/dbgen"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/sla"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/database"
+	"github.com/mickalford/opsmuster/backend/internal/dbgen"
+	"github.com/mickalford/opsmuster/backend/internal/domain/sla"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
 )
 
 // Store implements sla.Store.

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/registration"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	"github.com/mickalford/opsmuster/backend/internal/domain/registration"
 )
 
 // GET /api/v1/auth/signup/status — public; tells the frontend whether to show signup.

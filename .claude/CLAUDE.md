@@ -143,7 +143,7 @@ docker-compose -f docker/docker-compose.yml --profile test run --rm test
 
 # From the host (requires port 5432 exposed — it is by default)
 cd backend
-TEST_DATABASE_URL="postgres://helpdesk:helpdesk@localhost:5432/helpdesk?sslmode=disable" go test ./...
+TEST_DATABASE_URL="postgres://opsmuster:opsmuster@localhost:5432/opsmuster?sslmode=disable" go test ./...
 ```
 
 ### Running the full app

@@ -12,8 +12,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/gorilla/sessions"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
 )
 
 type contextKey string

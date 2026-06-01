@@ -1,4 +1,4 @@
-module github.com/publiciallc/go-help-desk/backend
+module github.com/mickalford/opsmuster/backend
 
 go 1.26.1
 

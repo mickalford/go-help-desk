@@ -11,8 +11,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/database/authstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/notification"
+	"github.com/mickalford/opsmuster/backend/internal/database/authstore"
+	"github.com/mickalford/opsmuster/backend/internal/domain/notification"
 )
 
 // WebhookStore is the interface needed to load enabled webhook configs.

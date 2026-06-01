@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/database"
-	"github.com/publiciallc/go-help-desk/backend/internal/dbgen"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/group"
+	"github.com/mickalford/opsmuster/backend/internal/database"
+	"github.com/mickalford/opsmuster/backend/internal/dbgen"
+	"github.com/mickalford/opsmuster/backend/internal/domain/group"
 )
 
 // Store implements group.Store.

@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/config"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/notification"
+	"github.com/mickalford/opsmuster/backend/internal/config"
+	"github.com/mickalford/opsmuster/backend/internal/domain/notification"
 )
 
 func TestSendRejectsHeaderInjection(t *testing.T) {

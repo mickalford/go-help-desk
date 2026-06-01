@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
 )
 
 // Service evaluates SLA policies against tickets.

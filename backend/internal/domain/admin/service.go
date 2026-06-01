@@ -171,11 +171,11 @@ func (s *Service) ReopenTargetStatusName(ctx context.Context) string {
 	return v
 }
 
-// SiteName returns the configured site name, defaulting to "Go Help Desk".
+// SiteName returns the configured site name, defaulting to "OpsMuster".
 func (s *Service) SiteName(ctx context.Context) string {
 	v, err := s.GetString(ctx, KeySiteName)
 	if err != nil || v == "" {
-		return "Go Help Desk"
+		return "OpsMuster"
 	}
 	return v
 }

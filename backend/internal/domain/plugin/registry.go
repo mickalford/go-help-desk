@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/notification"
+	"github.com/mickalford/opsmuster/backend/internal/domain/notification"
 )
 
 type loadedPlugin struct {

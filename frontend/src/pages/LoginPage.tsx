@@ -96,7 +96,7 @@ export function LoginPage() {
   const title =
     step === 'verify' ? 'Two-factor authentication'
     : step === 'enroll' ? 'Set up two-factor authentication'
-    : 'Sign in to Go Help Desk'
+    : 'Sign in to OpsMuster'
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">

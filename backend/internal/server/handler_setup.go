@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
 )
 
 // GET /api/v1/setup/status

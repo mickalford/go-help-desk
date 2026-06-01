@@ -18,8 +18,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
 	"golang.org/x/image/bmp"
 )
 

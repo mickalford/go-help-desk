@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/database"
-	"github.com/publiciallc/go-help-desk/backend/internal/dbgen"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/audit"
+	"github.com/mickalford/opsmuster/backend/internal/database"
+	"github.com/mickalford/opsmuster/backend/internal/dbgen"
+	"github.com/mickalford/opsmuster/backend/internal/domain/audit"
 	"github.com/sqlc-dev/pqtype"
 )
 

@@ -3,7 +3,7 @@ package notify
 import (
 	"context"
 
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/notification"
+	"github.com/mickalford/opsmuster/backend/internal/domain/notification"
 )
 
 // Multi fans an event out to multiple Dispatcher implementations. The first

@@ -1,4 +1,4 @@
-# Go Help Desk — Design Questions
+# OpsMuster — Design Questions
 
 ## Core Functionality
 

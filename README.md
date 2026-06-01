@@ -1,16 +1,16 @@
-# Go Help Desk
+# OpsMuster
 
 A self-hosted help desk for teams that want full control. Single binary, batteries included.
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 
-![Dashboard](https://raw.githubusercontent.com/PubliciaLLC/go-help-desk/gh-pages/screenshots/02-dashboard.png)
+![Dashboard](https://raw.githubusercontent.com/PubliciaLLC/opsmuster/gh-pages/screenshots/02-dashboard.png)
 
 ---
 
 ## What it is
 
-Go Help Desk is an open-source ticket management system. Staff submit and track support requests. Support teams triage, respond, and resolve them. Everything runs on your infrastructure.
+OpsMuster is an open-source ticket management system. Staff submit and track support requests. Support teams triage, respond, and resolve them. Everything runs on your infrastructure.
 
 - **No cloud required.** PostgreSQL + a single Go binary.
 - **No SaaS lock-in.** Your data stays where you put it.
@@ -20,9 +20,9 @@ Go Help Desk is an open-source ticket management system. Staff submit and track 
 
 | Ticket detail | Admin — categories |
 |---|---|
-| ![Ticket detail](https://raw.githubusercontent.com/PubliciaLLC/go-help-desk/gh-pages/screenshots/05-ticket-detail.png) | ![Admin categories](https://raw.githubusercontent.com/PubliciaLLC/go-help-desk/gh-pages/screenshots/06-admin-categories.png) |
+| ![Ticket detail](https://raw.githubusercontent.com/PubliciaLLC/opsmuster/gh-pages/screenshots/05-ticket-detail.png) | ![Admin categories](https://raw.githubusercontent.com/PubliciaLLC/opsmuster/gh-pages/screenshots/06-admin-categories.png) |
 | **Staff ticket list** | **Admin — settings** |
-| ![Staff ticket list](https://raw.githubusercontent.com/PubliciaLLC/go-help-desk/gh-pages/screenshots/09-staff-ticket-list.png) | ![Admin settings](https://raw.githubusercontent.com/PubliciaLLC/go-help-desk/gh-pages/screenshots/08-admin-settings.png) |
+| ![Staff ticket list](https://raw.githubusercontent.com/PubliciaLLC/opsmuster/gh-pages/screenshots/09-staff-ticket-list.png) | ![Admin settings](https://raw.githubusercontent.com/PubliciaLLC/opsmuster/gh-pages/screenshots/08-admin-settings.png) |
 
 ## Features
 
@@ -51,7 +51,7 @@ Go Help Desk is an open-source ticket management system. Staff submit and track 
 
 ```sh
 git clone https://github.com/PubliciaLLC/go-help-desk
-cd go-help-desk/docker
+cd opsmuster/docker
 cp .env.example .env   # set SESSION_SECRET, JWT_SECRET, BASE_URL
 docker compose up -d
 ```
@@ -148,7 +148,7 @@ Schema changes: edit `queries/*.sql`, add a migration under `internal/database/m
 To override the version string at build time:
 
 ```sh
-go build -ldflags "-X github.com/publiciallc/go-help-desk/backend/internal/version.Version=1.0.0" ./cmd/server
+go build -ldflags "-X github.com/publiciallc/opsmuster/backend/internal/version.Version=1.0.0" ./cmd/server
 ```
 
 ## License

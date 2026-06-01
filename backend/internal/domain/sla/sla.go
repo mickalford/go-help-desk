@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
 )
 
 // Policy defines the response and resolution time targets for a given

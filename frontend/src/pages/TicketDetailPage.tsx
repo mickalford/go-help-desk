@@ -21,7 +21,7 @@ import {
 } from '@/api/tickets'
 import { TagInput } from '@/components/TagInput'
 import { AttachmentUpload, type UploadState } from '@/components/AttachmentUpload'
-import { listStatuses, listUsers } from '@/api/admin'
+import { listStatuses, listUsers, listClients } from '@/api/admin'
 import { extractError } from '@/api/client'
 import { useAuthStore } from '@/store/auth'
 import { Layout } from '@/components/Layout'
@@ -413,6 +413,12 @@ export function TicketDetailPage() {
     enabled: isStaffOrAdmin,
   })
 
+  const { data: clients = [] } = useQuery({
+    queryKey: ['admin', 'clients'],
+    queryFn: listClients,
+    enabled: isAdmin,
+  })
+
   const { data: groups = [] } = useQuery({
     queryKey: ['groups-shared'],
     queryFn: listGroupsShared,
@@ -768,6 +774,23 @@ export function TicketDetailPage() {
                 </CardContent>
               </Card>
             )}
+
+            {isAdmin && ticket.client_id && (() => {
+              const c = clients.find(c => c.id === ticket.client_id)
+              return (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                      Client
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-sm">
+                    <p className="font-medium text-gray-900">{c?.name ?? '—'}</p>
+                    {c?.domain && <p className="text-xs font-mono text-gray-400">{c.domain}</p>}
+                  </CardContent>
+                </Card>
+              )
+            })()}
 
             <CustomFieldsPanel ticketId={id} isStaffOrAdmin={isStaffOrAdmin} />
 

@@ -11,9 +11,9 @@ import (
 	"github.com/google/uuid"
 	mcpgo "github.com/mark3labs/mcp-go/mcp"
 	mcpserver "github.com/mark3labs/mcp-go/server"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	"github.com/publiciallc/go-help-desk/backend/internal/version"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	"github.com/mickalford/opsmuster/backend/internal/version"
 )
 
 // Server wraps the MCP server and wires up help desk tools.
@@ -25,7 +25,7 @@ type Server struct {
 // New creates a Server and registers all MCP tools.
 func New(tickets *ticket.Service) *Server {
 	s := &Server{
-		mcp:     mcpserver.NewMCPServer("go-help-desk", version.Version),
+		mcp:     mcpserver.NewMCPServer("opsmuster", version.Version),
 		tickets: tickets,
 	}
 	s.registerTools()

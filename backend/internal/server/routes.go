@@ -2,8 +2,8 @@ package server
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
 )
 
 func (s *Server) authRouter() *chi.Mux {
@@ -197,6 +197,15 @@ func (s *Server) adminRouter() *chi.Mux {
 		r.Post("/", s.handleAdminCreateTag)
 		r.Delete("/{id}", s.handleAdminDeleteTag)
 		r.Post("/{id}/restore", s.handleAdminRestoreTag)
+	})
+
+	r.Route("/clients", func(r chi.Router) {
+		r.Get("/", s.handleListClients)
+		r.Post("/", s.handleCreateClient)
+		r.Post("/resolve", s.handleResolveClientByDomain)
+		r.Get("/{id}", s.handleGetClient)
+		r.Patch("/{id}", s.handleUpdateClient)
+		r.Delete("/{id}", s.handleDeleteClient)
 	})
 
 	return r

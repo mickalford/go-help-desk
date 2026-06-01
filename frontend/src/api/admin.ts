@@ -1,5 +1,5 @@
 import { api } from './client'
-import type { User, AdminUser, Group, Category, TicketType, TicketItem, Status, APIKey, WebhookConfig, Tag, FieldDef, Assignment, ScopeType, SLAPolicy } from './types'
+import type { User, AdminUser, Group, Category, TicketType, TicketItem, Status, APIKey, WebhookConfig, Tag, FieldDef, Assignment, ScopeType, SLAPolicy, Client } from './types'
 import type { Role } from './types'
 
 // ── Site config (public) ──────────────────────────────────────────────────────
@@ -482,4 +482,25 @@ export async function updateSLAPolicy(
 
 export async function deleteSLAPolicy(id: string): Promise<void> {
   await api.delete(`/admin/sla/policies/${id}`)
+}
+
+// ── Clients ───────────────────────────────────────────────────────────────────
+
+export async function listClients(): Promise<Client[]> {
+  const res = await api.get<Client[]>('/admin/clients')
+  return res.data ?? []
+}
+
+export async function createClient(input: { name: string; domain: string; notes?: string }): Promise<Client> {
+  const res = await api.post<Client>('/admin/clients', input)
+  return res.data
+}
+
+export async function updateClient(id: string, patch: { name?: string; domain?: string; notes?: string }): Promise<Client> {
+  const res = await api.patch<Client>(`/admin/clients/${id}`, patch)
+  return res.data
+}
+
+export async function deleteClient(id: string): Promise<void> {
+  await api.delete(`/admin/clients/${id}`)
 }

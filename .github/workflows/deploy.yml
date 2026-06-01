@@ -17,6 +17,6 @@ jobs:
     steps:
       - name: Deploy
         run: |
-          git -C ~/docker/gohelpdesk pull
-          cd ~/docker/gohelpdesk/docker
+          git -C ~/docker/opsmuster pull
+          cd ~/docker/opsmuster/docker
           docker compose up -d --build

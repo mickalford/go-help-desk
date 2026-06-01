@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/mickalford/workspace/bonbeach-incident-manager/ 2>/dev/null | head -40)",
+      "Read(//Users/mickalford/workspace/bonbeach-incident-manager/**)",
+      "Bash(ls /Users/mickalford/workspace/bonbaechycw-sveltekit/ 2>/dev/null | head -30 && echo \"---\" && cat /Users/mickalford/workspace/bonbaechycw-sveltekit/package.json 2>/dev/null | head -40)",
+      "Read(//Users/mickalford/workspace/**)",
+      "Read(//Users/mickalford/workspace/bonbaechycw-sveltekit/**)",
+      "mcp__claude_ai_svelte__get-documentation",
+      "mcp__claude_ai_svelte__svelte-autofixer",
+      "Read(//Users/mickalford/vaults/MickBrain/10 - Infrastructure/**)",
+      "Bash(dig +short incident.bonbeachycw.com.au @1.1.1.1)",
+      "Bash(dig +short incident.bonbeachycw.com.au @8.8.8.8)",
+      "Bash(dig incident.bonbeachycw.com.au @1.1.1.1 +short)",
+      "Bash(dig NS bonbeachycw.com.au @1.1.1.1 +short)",
+      "Bash(dig incident.bonbeachycw.com.au @dns1.p01.nsone.net +short)",
+      "Bash(dig +short bonbeachycw.com.au @1.1.1.1)",
+      "Bash(dig +short www.bonbeachycw.com.au @1.1.1.1)",
+      "Bash(dig +short CNAME www.bonbeachycw.com.au @1.1.1.1)",
+      "Bash(ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10 mick@103.27.33.70 'echo \"=== uname ===\" ; uname -a ; echo \"=== docker ps ===\" ; docker ps --format \"table {{.Names}}\\\\t{{.Status}}\\\\t{{.Ports}}\" ; echo \"=== port 8080 owner ===\" ; sudo -n ss -tlnp 2>/dev/null | grep :8080 || ss -tlnp | grep :8080 ; echo \"=== port 443 owner ===\" ; ss -tlnp | grep :443 ; echo \"=== port 80 owner ===\" ; ss -tlnp | grep :80 ')",
+      "Bash(ssh mick@103.27.33.70 'echo \"=== opsmuster compose file on vinnie ===\" ; cat ~/docker/opsmuster/docker/docker-compose.yml 2>/dev/null | head -100 ; echo \"\" ; echo \"=== docker-app-1 inspect: networks + IP ===\" ; docker inspect docker-app-1 --format \"Networks: {{range \\\\$k, \\\\$v := .NetworkSettings.Networks}}{{\\\\$k}}\\({{\\\\$v.IPAddress}}\\) {{end}}\" ; echo \"=== caddy networks ===\" ; docker inspect caddy --format \"Networks: {{range \\\\$k, \\\\$v := .NetworkSettings.Networks}}{{\\\\$k}}\\({{\\\\$v.IPAddress}}\\) {{end}}\" ; echo \"=== Caddyfile ===\" ; sudo cat /home/mick/docker/caddy/Caddyfile 2>/dev/null || cat /home/mick/docker/caddy/Caddyfile')",
+      "Bash(dig @ns1.nameserver.net.au incident.bonbeachycw.com.au +noall +answer +authority +comments)",
+      "Bash(dig @1.1.1.1 incident.bonbeachycw.com.au +noall +answer +authority +comments)",
+      "Bash(ssh mick@103.27.33.70 'echo \"=== opsmuster git remote ===\" ; git -C ~/docker/opsmuster remote -v ; echo \"=== branch ===\" ; git -C ~/docker/opsmuster branch --show-current ; echo \"=== bonbeach dir exists? ===\" ; ls -la ~/docker/bonbeach-helpdesk 2>&1 | head -3 ; echo \"=== caddy networks ===\" ; docker network ls | grep -E \"opsmuster|bonbeach|headscale\"')",
+      "Bash(ssh mick@103.27.33.70 'cd ~/docker && git clone https://github.com/mickalford/opsmuster.git bonbeach-helpdesk && echo \"---\" && ls -la ~/docker/bonbeach-helpdesk/docker/ | head -10')",
+      "Bash(ssh mick@103.27.33.70 'cat ~/docker/bonbeach-helpdesk/docker/docker-compose.yml')",
+      "Bash(ssh mick@103.27.33.70 *)",
+      "Bash(dig -4 @ns1.nameserver.net.au incident.bonbeachycw.com.au +short)",
+      "Bash(dig -4 @1.1.1.1 incident.bonbeachycw.com.au +short)",
+      "Bash(dig -4 @8.8.8.8 incident.bonbeachycw.com.au +short)",
+      "Bash(dig @112.140.176.177 incident.bonbeachycw.com.au +short)",
+      "Bash(dig +short ns1.nameserver.net.au)",
+      "Bash(curl -sS -o /tmp/r -w \"HTTP %{http_code}\\\\nTLS: %{ssl_verify_result}\\\\n\" --max-time 10 https://incident.bonbeachycw.com.au/api/v1/setup/status)",
+      "Read(//tmp/**)",
+      "Bash(ls \"/Users/mickalford/vaults/MickBrain/60 bonbeach YCW/\" 2>/dev/null | head -20 || ls \"/Users/mickalford/vaults/MickBrain/\" | grep -i bonbeach)",
+      "Read(//Users/mickalford/vaults/MickBrain/**)"
+    ]
+  }
+}

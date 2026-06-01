@@ -8,13 +8,13 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/publiciallc/go-help-desk/backend/internal/database/authstore"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/auth"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/category"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/group"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/ticket"
-	"github.com/publiciallc/go-help-desk/backend/internal/domain/user"
-	authmw "github.com/publiciallc/go-help-desk/backend/internal/middleware"
+	"github.com/mickalford/opsmuster/backend/internal/database/authstore"
+	"github.com/mickalford/opsmuster/backend/internal/domain/auth"
+	"github.com/mickalford/opsmuster/backend/internal/domain/category"
+	"github.com/mickalford/opsmuster/backend/internal/domain/group"
+	"github.com/mickalford/opsmuster/backend/internal/domain/ticket"
+	"github.com/mickalford/opsmuster/backend/internal/domain/user"
+	authmw "github.com/mickalford/opsmuster/backend/internal/middleware"
 )
 
 // ── Users ────────────────────────────────────────────────────────────────��───
