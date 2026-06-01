@@ -177,7 +177,7 @@ export function TicketListPage() {
               value={clientFilter ?? ''}
               onChange={e => {
                 const v = e.target.value
-                navigate({ to: '/tickets', search: (prev: Record<string, unknown>) => ({ ...prev, client: v || undefined }) })
+                navigate({ to: '/tickets', search: (prev) => ({ status: prev.status, reporter: prev.reporter, client: v || undefined }) })
               }}
             >
               <option value="">All clients</option>
@@ -229,7 +229,7 @@ export function TicketListPage() {
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: s.color }} />
                 {s.name}
               </span>
-              <Link to="/tickets" search={{ status: undefined }} className="text-xs text-gray-400 hover:text-gray-600">
+              <Link to="/tickets" search={{ status: undefined, reporter: undefined, client: undefined }} className="text-xs text-gray-400 hover:text-gray-600">
                 Clear ×
               </Link>
             </div>
@@ -245,7 +245,7 @@ export function TicketListPage() {
               <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
                 {u?.display_name ?? reporterFilter}
               </span>
-              <Link to="/tickets" search={{ status: undefined, reporter: undefined }} className="text-xs text-gray-400 hover:text-gray-600">
+              <Link to="/tickets" search={{ status: undefined, reporter: undefined, client: undefined }} className="text-xs text-gray-400 hover:text-gray-600">
                 Clear ×
               </Link>
             </div>
@@ -261,7 +261,7 @@ export function TicketListPage() {
               <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
                 {c.name}
               </span>
-              <Link to="/tickets" search={(prev: Record<string, unknown>) => ({ ...prev, client: undefined })} className="text-xs text-gray-400 hover:text-gray-600">
+              <Link to="/tickets" search={(prev) => ({ status: prev.status, reporter: prev.reporter, client: undefined })} className="text-xs text-gray-400 hover:text-gray-600">
                 Clear ×
               </Link>
             </div>

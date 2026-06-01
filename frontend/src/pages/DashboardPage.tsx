@@ -48,7 +48,7 @@ export function DashboardPage() {
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {statuses?.filter((s) => s.active).map((s) => (
-              <Link key={s.id} to="/tickets" search={{ status: s.id }} className="block group">
+              <Link key={s.id} to="/tickets" search={{ status: s.id, reporter: undefined, client: undefined }} className="block group">
                 <Card className="border-l-4 transition-shadow group-hover:shadow-md cursor-pointer" style={{ borderLeftColor: s.color }}>
                   <CardHeader className="pb-1">
                     <CardTitle className="text-sm font-medium text-gray-500">{s.name}</CardTitle>
@@ -63,7 +63,7 @@ export function DashboardPage() {
         )}
 
         <div className="flex gap-4">
-          <Link to="/tickets" search={{ status: undefined }}>
+          <Link to="/tickets" search={{ status: undefined, reporter: undefined, client: undefined }}>
             <Button variant="outline">View all tickets</Button>
           </Link>
         </div>
@@ -73,7 +73,7 @@ export function DashboardPage() {
             <h2 className="text-base font-semibold text-gray-900">By Client</h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {clients.map(c => (
-                <Link key={c.id} to="/tickets" search={{ reporter: c.id, status: undefined }} className="block group">
+                <Link key={c.id} to="/tickets" search={{ reporter: c.id, status: undefined, client: undefined }} className="block group">
                   <Card className="transition-shadow group-hover:shadow-md cursor-pointer">
                     <CardContent className="flex items-center gap-3 py-3 px-4">
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">

@@ -22,7 +22,7 @@ function EditRow({
   onCancel,
 }: {
   client: Client
-  onSave: (patch: EditState) => Promise<void>
+  onSave: (patch: EditState) => Promise<unknown>
   onCancel: () => void
 }) {
   const [draft, setDraft] = useState<EditState>({
